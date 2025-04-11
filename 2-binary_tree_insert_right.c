@@ -15,11 +15,12 @@ binary_tree_t *binary_tree_insert_right(binary_tree_t *parent, int value)
 
 binary_tree_t *n_noeud;
 
+	n_noeud = binary_tree_node(parent, value);
+
 	if (n_noeud == NULL)
 	{
 		return (NULL);
 	}
-
 	n_noeud->n = value;
 	n_noeud->left = NULL;
 	n_noeud->right = NULL;
