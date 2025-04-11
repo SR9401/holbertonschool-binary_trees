@@ -1,52 +1,44 @@
 #include "binary_trees.h"
 
-/**
-*binary_tree_is_perfect - verifie i un arbre binaire est parfait
-*
-*@tree: pointeur sur noeud
-*
-*Return: 1 si arbre est parfait sinon 0
-**/
+#include "binary_trees.h"
 
+/**
+* binary_tree_is_perfect - Verifie si un arbre est parfait
+* @tree: pointeur vers la racine de larbre
+* Return: 1 si parfait, 0 sinon
+**/
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-int g;
-int d;
-binary_tree_t *tmpd = (binary_tree_t *)tree;
-binary_tree_t *tmpg = (binary_tree_t *)tree;
+	int hl = 0, hr = 0;
+	const binary_tree_t *g, *d;
 
 	if (tree == NULL)
-	{
 		return (0);
+
+	if (tree->left == NULL && tree->right == NULL)
+		return (1);
+
+	if (tree->left == NULL || tree->right == NULL)
+	return (0);
+
+	g = tree->left;
+	while (g)
+	{
+		hl++;
+		g = g->left;
 	}
 
-	for (d = 0; tmpd->right != NULL; d++)
+	d = tree->right;
+	while (d)
 	{
-		tmpd = tmpd->right;
-		if (tmpd->parent->left == NULL)
-		{
-			return (0);
-		}
+		hr++;
+		d = d->right;
 	}
-	if (tmpd->left != NULL)
-	{
-		d++;
-	}
-	for (g = 0; tmpg->left != NULL; g++)
-	{
-		tmpg = tmpg->left;
-		if (tmpg->parent->right == NULL)
-		{
-		return (0);
-		}
-	}
-	if (tmpg->right != NULL)
-	{
-	g++;
-	}
-	if (d == g)
-	{
+
+	if (hl == hr &&
+	    binary_tree_is_perfect(tree->left) &&
+	    binary_tree_is_perfect(tree->right))
 		return (1);
-	}
+
 	return (0);
 }
