@@ -1,32 +1,30 @@
 #include "binary_trees.h"
 
 /**
-*binary_tree_balance - fonction qui compte les feuilles
-*
-*@tree: pointeur sur noeud
-*
-*Return: 0 si null ou la difference entre la branche d et l
-**/
-
-int binary_tree_balance(const binary_tree_t *tree)
-
+* height - calcule la hauteur d'un arbre binaire
+* @tree: pointeur vers la racine de l'arbre
+* Return: hauteur de l'arbre, 0 si NULL
+*/
+size_t height(const binary_tree_t *tree)
 {
-size_t l = 0;
-size_t d = 0;
-
 	if (tree == NULL)
-	{
-		return (0);
-	}
+	return (0);
 
+	size_t left = height(tree->left);
+	size_t right = height(tree->right);
 
-	if (tree->left != NULL)
-	{
-		l = 1 + binary_tree_balance(tree->left);
-	}
-	if (tree->right != NULL)
-	{
-		d = 1 + binary_tree_balance(tree->right);
-	}
-return (l - d);
+	return ((left > right ? left : right) + 1);
+}
+
+/**
+* binary_tree_balance - calcule le facteur d'equilibre d'un noeud
+* @tree: pointeur vers le noeud
+* Return: facteur d'equilibre, ou 0 si tree est NULL
+*/
+int binary_tree_balance(const binary_tree_t *tree)
+{
+	if (tree == NULL)
+	return (0);
+
+	return (height(tree->left) - height(tree->right));
 }
