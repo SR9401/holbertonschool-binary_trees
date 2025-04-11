@@ -5,17 +5,14 @@
 * @tree: pointeur vers la racine de l'arbre
 * Return: hauteur de l'arbre, 0 si NULL
 */
+
 size_t height(const binary_tree_t *tree)
 {
-	size_t left;
-	size_t right;
-
 	if (tree == NULL)
-	{
-		return (0);
-	}
-	left = height(tree->left);
-	right = height(tree->right);
+	return (0);
+
+	size_t left = height(tree->left);
+	size_t right = height(tree->right);
 
 	return ((left > right ? left : right) + 1);
 }
